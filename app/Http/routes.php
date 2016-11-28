@@ -33,6 +33,14 @@ Route::get('categories/create', function(){
 
 	return view('newcategory');
 });
+Route::get('categories/other', function(){
+	$users = App\User::whereHas('categories', function ($query) {
+        $query->where('priority',0);
+    })
+    ->distinct()->get();
+
+	return view('users-category-other',['users'=> $users]);
+});
 
 Route::get('categories/{id}', function($id){
 	$category = App\Category::find($id);
@@ -421,6 +429,13 @@ Route::get('logout', function(){
 
 //--------------------SEARCH------------------------------//
 
-Route::get('search', function(){
-	return view('search');
+Route::post('search', function(){
+	$word = Request::get('s');
+
+	$cats = App\Category::where('name',$word)->get();
+
+
+	return view('search',compact('cats'));
 });
+
+

@@ -6,16 +6,21 @@
                     <li>
                         <a href="{{url('categories/'.$cat->id)}}" class="blog-tag">{{$cat->name}}</a>
                     </li>
+                    
                 @endforeach
+                    <li>
+                        <a href="{{url('categories/other')}}" class="blog-tag">Other</a>
+                    </li>
 
                 {!! Form::open(['url' => 'search','files'=>true, 'class'=>'margin-bottom-10'])!!}
 
                 <div class="form-search" method="get" id="s" action="/"></div>
                         <div class="input-append">
-                        <input type="text" class="input-medium search-query" name="s" placeholder="Search" value="">
+                        <input type="text" class="input-medium search-query" name="s" placeholder="Search Categories" value="">
                     <button type="submit" class="add-on"><i class="glyphicon glyphicon-search"></i></button>
                     </div>
                 {!! Form::close() !!}
+        
 
 
             </div>

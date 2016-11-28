@@ -5102,6 +5102,9 @@ button.close {
   -o-transition: -o-transform 0.3s ease-out;
   transition: transform 0.3s ease-out;
 }
+
+
+
 .modal.in .modal-dialog {
   -webkit-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
@@ -5189,7 +5192,7 @@ button.close {
   .modal-lg {
     width: 900px;
   }
-}
+
 .tooltip {
   position: absolute;
   z-index: 1030;

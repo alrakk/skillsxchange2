@@ -2,6 +2,7 @@
 @section('content')
 
     
+
     <!-- === BEGIN CONTENT === -->
     <div id="content">
         <div class="container background-white">
@@ -9,7 +10,7 @@
                 <!-- Main Column -->
 
                 <div class="col-md-9">
-                    
+                    <h1>Other Categories</h1>
                
                     @foreach($users as $index=>$user)         
                     <!-- User Post -->
@@ -128,6 +129,9 @@
                             </a>
                         </div>
 
+                        
+
+
                         <div id="faq-sub{{$index}}" class="panel-collapse collapse">
                             <div class="panel-body">
 
@@ -135,6 +139,7 @@
                                 <h3 class="padding-bottom-20">{{$comment->user->firstname}} {{$comment->user->lastname}}</h3>
                                 <p class="padding-bottom-10">{{$comment->content}}</p>
                               
+
                                 @if(Auth::check())
 
                                     @if((Auth::user()->admin_status =='1')||(Auth::user()->id == $comment->user_id))
@@ -148,6 +153,7 @@
                                 @endif
 
                             @endforeach
+
 
                                 @if(Auth::check()== true)
 
@@ -167,17 +173,38 @@
                                     <p><b>Please login to add comments</b></p>
 
                                 @endif
+
+
                                 
                             </div>     
-                        </div>                        
+                        </div>
+
+                        
                     </div>
                  
                     <!-- End Comments -->
                 
                     @endforeach
 
+                    {{-- {{$users->links()}} --}}
+
+
                     <!-- Pagination -->
-                    {{$users->links()}}
+                    <ul class="pagination">
+                        <li>
+                            <a href="#">&laquo;</a>
+                        </li>
+                        <li>
+                            <a href="#">Previous Page</a>
+                        </li>
+                        <li>
+                            <a href="#">Next Page</a>
+                        </li>
+                        
+                        <li>
+                            <a href="#" >&raquo;</a>
+                        </li>
+                    </ul>
                     <!-- End Pagination -->
 
                 </div>

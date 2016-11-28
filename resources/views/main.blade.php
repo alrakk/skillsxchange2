@@ -72,51 +72,18 @@
 
             @endforeach
 
-                 <div class="portfolio-item col-sm-4 col-md-offset-4 col-xs-6 margin-bottom-40">
+                <div class="portfolio-item col-sm-4 col-md-offset-4 col-xs-6 margin-bottom-40">
                     <a href="#">
                         <figure class="animate fadeInUp">
                             <div class="grid-image">
                                 <div class="featured-info">
-                                    <div class="info-wrapper"><a href="">Other</a></div>
+                                    <div class="info-wrapper"><a href="{{url('categories/other')}}">Other Categories</a></div>
                                 </div>
                                 <img alt="image2" src="{{url('/')}}/images/photo_13.jpg">
                             </div>
                         </figure>
                      </a>
                 </div>
-
-
-                    <!-- End Categories Item -->
-
-                    <!-- Categories Item -->
-                    {{-- <div class="portfolio-item col-sm-4 col-xs-6 margin-bottom-40">
-                        <a href="#">
-                            <figure class="animate fadeInUp">
-                                <div class="grid-image">
-                                    <div class="featured-info">
-                                        <div class="info-wrapper"><a href="user-list.html">DIY</a></div>
-                                    </div>
-                                    <img alt="image2" src="{{url('/')}}/assets/img/frontpage/diy.jpg">
-                                </div>
-                            </figure>
-                        </a>
-                    </div> --}}
-                    <!-- End Categories Item -->
-
-                    <!-- Categories Item -->
-                    {{-- <div class="portfolio-item col-sm-4 col-xs-6 margin-bottom-40">
-                        <a href="#">
-                            <figure class="animate fadeInRight">
-                                <div class="grid-image">
-                                    <div class="featured-info">
-                                        <div class="info-wrapper"><a href="user-list.html">Languages</a></div>
-                                    </div>
-                                    <img alt="image3" src="{{url('/')}}/assets/img/frontpage/lenguage.jpeg">
-                                </div>
-                            </figure>
-                        </a>
-                    </div> --}}
-                    <!-- End Categories Item -->
 
                     
                 </div>

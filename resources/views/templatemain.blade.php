@@ -91,10 +91,31 @@
                             @endif 
 
                             </ul>
+
                         </div>
                     </div>
                 </div>
+
+
                 <!-- End Top Menu -->
+                <div class="search">  
+                    <div class="col-md-4 col-md-offset-4">
+                    <h2 class="">Search Categories</h2>
+                        
+                        <div id="search-input">
+                            <div class="input-group col-md-12 ">
+
+                                <input type="text" class="form-control input-lg" placeholder="Search" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info btn-lg" type="button">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>              
+
             </div>
         </div>
         <!-- End Header -->
