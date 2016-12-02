@@ -101,18 +101,19 @@
                 <div class="search">  
                     <div class="col-md-4 col-md-offset-4">
                     <h2 class="">Search Categories</h2>
-                        
-                        <div id="search-input">
-                            <div class="input-group col-md-12 ">
+                        {!! Form::open(['url' => 'search','files'=>true, 'class'=>'margin-bottom-10'])!!}
 
-                                <input type="text" class="form-control input-lg" placeholder="Search" />
+                        <div id="search-input" method="get" id="s" action="/">
+                            <div class="input-group col-md-12 ">
+                                <input type="text" class="form-control input-lg" name="s" placeholder="Search" />
                                 <span class="input-group-btn">
-                                    <button class="btn btn-info btn-lg" type="button">
+                                    <button class="btn btn-info btn-lg" type="submit">
                                         <i class="glyphicon glyphicon-search"></i>
                                     </button>
                                 </span>
                             </div>
                         </div>
+                        {!! Form::close() !!}
                     </div>
                 </div>              
 

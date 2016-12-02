@@ -20,11 +20,9 @@
                                 {{$errors->first('title')}}
                             </div>
 
-                            {{-- <div class="form-group margin-bottom-20">
-                                <label for="">Author</label>
-                                {!!Form::text('post_author','',['class'=>'form-control']);!!}
-                                <p>{{$errors->first('post_author')}}</p> 
-                            </div> --}}
+                         
+                            {!!Form::hidden('user_id',Auth::user()->id);!!}
+                            
                             
                             <div class="form-group margin-bottom-20">
                                 <label for="">Content</label>

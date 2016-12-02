@@ -39,11 +39,26 @@
                                 {!!Form::text('email','',['class'=>'form-control']);!!}
                                 <p>{{$errors->first('email')}}</p>
                             </div>
+                            <div class="form-group margin-bottom-20">
+                                <label for="">City
+                                    <span class="color-red">*</span>
+                                </label>
+                                {!!Form::text('city','',['class'=>'form-control']);!!}
+                                <p>{{$errors->first('city')}}</p> 
+                            </div>
+                            <div class="form-group margin-bottom-20">
+                                <label for="">Country
+                                    <span class="color-red">*</span>
+                                </label>
+                                {!!Form::text('country','',['class'=>'form-control']);!!}
+                                <p>{{$errors->first('country')}}</p> 
+                            </div>
                             
                             <div class="form-group margin-bottom-20">
                                 <label for="">Profile Pic</label>
                                  {!!Form::file('photo','',['class'=>'form-control']);!!}
-                                <p>{{$errors->first('photo')}}</p>
+                                 
+                                
                             </div>
 
                             <div class="form-group margin-bottom-20">

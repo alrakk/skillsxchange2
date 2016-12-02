@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstname','lastname', 'email', 'password', 'photo','about','offering','seeking'
+        'firstname','lastname', 'email', 'password','about','city','country','offering','seeking'
     ];
 
     /**
@@ -42,5 +42,10 @@ class User extends Authenticatable
 
     public function seekings(){
         return $this->categories()->wherePivot('type', 'seeking');
+    }
+
+     public function posts()
+    {
+        return $this->hasMany('App\Post');
     }
 }

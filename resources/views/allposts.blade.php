@@ -14,24 +14,8 @@
                             
                             <div class="blog-item-header margin-top-50">
                                 <!-- Title -->
-                                <h2>
-                                    <a href="#">
-                                       {{$post->title}}
-                                    </a>
-                                </h2>
+                                <h2>{{$post->title}}</h2>
                                 <!-- End Title -->
-
-                                <!-- Blog Item Details -->
-                                <div class="blog-post-details">
-                                    <!-- Author Name -->
-                                    <div class="blog-post-details-item blog-post-details-item-left user-icon">
-                                        <i class="fa fa-user color-black"></i>
-                                        <a href="#">Admin</a>
-                                    </div>
-                                    <!-- End Author Name -->
-
-                                </div>
-                                <!-- End Blog Item Details -->
                             </div>
                             <!-- Blog Item -->
                             <div class="blog-item">
@@ -39,14 +23,28 @@
                                 <div class="blog-post-body row margin-top-15">
                                     <div class="col-md-12 ">
                                         <img class="margin-bottom-20" src="{{url('/')}}/images/{{$post->post_photo}}" alt="">
-                                        <p>Author:{{$post->post_author}}</p>
+                                        <p><b>Author:</b> {{$post->user->firstname}} {{$post->user->lastname}}</p>
                                     </div>
                                     <div class="col-md-12  margin-bottom-50">
                                     
-                                        <div data-editable="content" data-url="{{url('posts/'.$post->id)}}">{!!$post->content!!}</div>
+                                        <div>{!!$post->content!!}</div>
                                         
                                     </div>
                                 </div>
+
+                                    @if(Auth::check())
+
+                                        @if((Auth::user()->admin_status =='1')||(Auth::user()->id == $post->user_id))
+
+                                            {{Form::open(['url'=>'posts/'.$post->id,'method'=>'delete'])}}
+                                            {{Form::submit('Delete',array('class'=>'btn btn-primary margin-top-10 margin-bottom-30 '))}}
+
+                                            <a href="{{url('posts/'.$post->id.'/edit')}}" class="btn btn-primary margin-top-10 margin-bottom-30 ">Edit Post</a>
+                                            {{Form::close()}}
+                                         @endif
+
+                                    @endif
+                                
                                 <div class="blog-item-footer">
                                     
                                     <!-- Comments -->
@@ -66,6 +64,7 @@
                                                         <p>{{$comment->content}}</p>
                                                         
                                                     </div>
+
                                                 </div>
                                                 @if(Auth::check())
 

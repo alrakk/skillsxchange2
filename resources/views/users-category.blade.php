@@ -24,20 +24,9 @@
                             <!-- User Item Details -->
                             <div class="blog-post-details">
                                 <!-- Author Name -->
-                                <div class="blog-post-details-item blog-post-details-item-left">
-                                    <i class="fa fa-user color-black"></i>
-                                    <a href="#">Admin</a>
-                                </div>
+                            <p><b>{{$user->city}}, {{$user->country}}</b></p>
                                 <!-- End User Name -->
                                 
-                                <!-- # of Comments -->
-                                <div class="blog-post-details-item blog-post-details-item-left blog-post-details-item-last">
-                                    <a href="">
-                                        <i class="fa fa-comments color-black"></i>
-                                        0 Comments
-                                    </a>
-                                </div>
-                                <!-- End # of Comments -->
                             </div>
                             <!-- End User Item Details -->
                         </div>
@@ -53,15 +42,15 @@
                                 <div class="col-md-7 padding-right-20">
 
                                     <p>{{$user->about}}</p>
-                                    <p>Offering:
+                                    <p><b>Offering:</b>
                                     @foreach($user->offerings as $cat)
-                                        {{$cat->name}}
+                                        {{$cat->name}} -
                                     @endforeach
                                    
                                     </p>
-                                    <p>Seeking: 
+                                    <p><b>Seeking:</b>
                                     @foreach($user->seekings as $cat)
-                                        {{$cat->name}}
+                                        {{$cat->name}} -
                                     @endforeach
                                     </p>
 

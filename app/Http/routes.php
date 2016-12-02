@@ -112,8 +112,9 @@ Route::post('users', function(){
 		'firstname' => 'required',
 		'lastname' => 'required',
 		'email'=>'required',
+		'city'=>'required',
+		'country'=>'required',
 		'password'=>'required',
-		'photo'=>'required',
 		'about'=>'required',
 		'category_offering'=>'required',
 		'category_seeking'=>'required',
@@ -128,8 +129,14 @@ Route::post('users', function(){
 		$user = App\User::create($input);
 		$user->password = bcrypt($user->password);
 
-		$newName = 'photo_'. $user->id.'.jpg';
-		Request::file('photo')->move('images', $newName);
+		$newName = 'defaultprof.jpeg';
+		if(Request::hasFile('photo')){
+
+			$newName = 'photo_'. $user->id.'.jpg';
+			Request::file('photo')->move('images', $newName);
+
+		}
+		
 		$user->photo = $newName;
 		$user->save();
 
@@ -188,6 +195,10 @@ Route::get('users/{id}', function($id){
 Route::get('users/{id}/edit', function($id){
 	$user = App\User::find($id);
 
+	//collection of  array
+	// dd( $user->offerings()->lists('categories.id'));
+
+		
 	return view('edituser',['user'=>$user]);
 });
 
@@ -198,6 +209,8 @@ Route::put('users/{id}', function($id){
 
 		'firstname' => 'required',
 		'email' => 'required',
+		'city'=> 'required',
+		'country'=> 'required',
 		'category_offering'=>'required',
 		'category_seeking'=>'required',
 
@@ -206,14 +219,23 @@ Route::put('users/{id}', function($id){
 	$validator = Validator::make($input, $rules);
 
 	if($validator->passes() == true){
-
 		$user = App\User::find($id);
+		
 		$user->fill($input);
 		$user->save();
+
+			
+			$newName = time().'photo_'. $user->id.'.jpg';
+			Request::file('photo')->move('images', $newName);
+			$user->photo = $newName;
+			$user->save();
+
 
 		$user->categories()->detach();
 
 		$cat_offerings = $input['category_offering'];
+
+
 		$user->categories()->attach($cat_offerings, ['type' => 'offering']);
 		if(Request::has('other_offering')){
 
@@ -245,24 +267,14 @@ Route::put('users/{id}', function($id){
 
 		}
 
-	return redirect('users/'.$id);
+		return redirect('users/'.$id);
 
 	}else{
 		
 
-
-		$column=$input['column'];
-	    $value= $input['value']; 
-	            
-	    $user = User::find($id);
-	    $user->$column =$value;
-	    $user->save();
-	
 	    return redirect('users/'.$id.'/edit')->
 			withInput()->withErrors($validator);
 	   }
-
-
 
 });
 
@@ -316,6 +328,16 @@ Route::get('posts/{id}', function($id){
 
 });
 
+Route::get('posts/{id}/edit', function($id){
+	
+	$post = App\Post::find($id);	
+	
+	return view('editpost',['post'=>$post]);
+});
+
+
+
+
 Route::post('posts', function(){
 
 	$input = Request::all();
@@ -324,18 +346,23 @@ Route::post('posts', function(){
 
         'title'=>'required',
         'content'=>'required',
-        'post_photo'=>'required',
+   
 
     ];
 
     $validator = Validator::make($input, $rules);
 
     if($validator->passes()==true){
-
     	$post = App\Post::create($input);
+    	
+    	$newName = 'defaultpost.jpg';
 
-    	$newName = 'photo_'.$post->id.'.jpg';
-    	Request::file('post_photo')->move('images',$newName);
+		if(Request::hasFile('post_photo')){
+
+	    	$newName = 'photo_'.$post->id.'.jpg';
+	    	Request::file('post_photo')->move('images',$newName);
+    	}
+
     	$post->post_photo = $newName;
     	$post->save();
 
@@ -344,21 +371,42 @@ Route::post('posts', function(){
     }else{
     	return redirect('posts/create')->withInput()->withErrors($validator);
     }
+
 });
+
 
 Route::put('posts/{id}',function($id){
 
 
-        $input=Request::all();
+    $input= Request::all();
 
-        $column =$input['column'];
-        $value=$input['value'];
+    $rules =[
+
+        'content'=>'required',
+
+    ];
+
+    $validator = Validator::make($input, $rules);
+
+    if($validator->passes() == true){
 
         $post = App\Post::find($id);
-        $post->$column =$value;
+        $post->fill($input);
         $post->save();
 
-        return $value;
+        	$newName = time().'photo_'. $post->id.'.jpg';
+			Request::file('post_photo')->move('images', $newName);
+			$post->post_photo = $newName;
+			$post->save();
+
+    return redirect('posts/'.$id);
+
+
+    }else{
+        return redirect('posts/'.$id.'/edit')->withInput()->withErrors($validator);
+
+    }
+
 
        
 });
@@ -430,6 +478,7 @@ Route::get('logout', function(){
 //--------------------SEARCH------------------------------//
 
 Route::post('search', function(){
+
 	$word = Request::get('s');
 
 	$cats = App\Category::where('name',$word)->get();

@@ -2717,7 +2717,7 @@ ul.social-icons li a:hover {
 .blog-item-header {
   display: block;
   padding-bottom: 0px;
-  margin-bottom: 40px;
+  margin-bottom: 0px;
   padding-left: 0px;
 }
 .blog-item-header h2 {
