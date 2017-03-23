@@ -22,6 +22,10 @@
         <link rel="stylesheet" href="{{asset('assets/css/font-awesome.css')}}" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('assets/css/nexus.css')}}"/>
         <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}"/>
+
+        <link rel="stylesheet" href="{{asset('assets/css/dropzone.css')}}">
+
+        
         <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" rel="stylesheet">
         <!-- Google Fonts-->
         <link href="http://fonts.googleapis.com/css?family=Raleway:100,300,400" type="text/css" rel="stylesheet">
@@ -107,26 +111,9 @@
         <div id="footer" class="background-dark text-light">
             <div class="container no-padding">
                 <div class="row">
-                    <!-- Footer Menu -->
-                    <div id="footermenu" class="col-md-8">
-                        <ul class="list-unstyled list-inline">
-                            <li>
-                                <a href="#" target="_blank">Sample Link</a>
-                            </li>
-                            <li>
-                                <a href="#" target="_blank">Sample Link</a>
-                            </li>
-                            <li>
-                                <a href="#" target="_blank">Sample Link</a>
-                            </li>
-                            <li>
-                                <a href="#" target="_blank">Sample Link</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- End Footer Menu -->
+                    
                     <!-- Copyright -->
-                    <div id="copyright" class="col-md-4">
+                    <div id="copyright" class="col-md-4 col-md-offset-8">
                         <p class="pull-right">© Skills Xchange</p>
                     </div>
                     <!-- End Copyright -->
@@ -137,7 +124,8 @@
             <!-- JS -->
            
            
-
+<div id="token">{{csrf_token()}}</div>  
+<div id="public">{{url("/")}}</div>
           
             <script type="text/javascript" src="{{asset('assets/js/jquery.min.js')}}" type="text/javascript"></script>
              <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
@@ -161,6 +149,9 @@
             <!-- Slimbox2-->
             <script type="text/javascript" src="{{asset('assets/js/slimbox2.js')}}" charset="utf-8"></script>
             <!-- Modernizr -->
+
+            <script src="{{asset('assets/js/dropzone.js')}}"></script>
+
             <script src="{{asset('assets/js/modernizr.custom.js')}}" type="text/javascript"></script>
             <!-- End JS -->
     </body>

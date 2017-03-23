@@ -10,7 +10,7 @@
                     <div class="col-md-6 col-md-offset-3 col-sm-offset-3">
                         
                             <div class="signup-header">
-                                <h2 class="margin-bottom-20">New Category</h2>
+                                <h2 class="margin-bottom-20"><b>New Category</b></h2>
                             </div>
                             {!! Form::open(['url' => 'categories', 'files'=>true, 'class'=>'margin-bottom-20']) !!}
 
@@ -27,9 +27,8 @@
                                 {{$errors->first('priority')}}
                             </div>
                             
-                            
                             <div class="form-group margin-bottom-20">
-                                <label for="">Photo</label>
+                                <label for="">Photo (size 394 x 260px)</label>
                                  {!!Form::file('photo_category','',['class'=>'form-control']);!!}
                                 <p>{{$errors->first('photo_category')}}</p>
                             </div>

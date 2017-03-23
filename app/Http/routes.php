@@ -22,6 +22,8 @@
 // });
 
 //-------------------------Categories-------------------//
+//------------------------------------------------------//
+
 Route::get('categories', function(){
 	$categories = App\Category::all();
 
@@ -32,12 +34,14 @@ Route::get('categories/create', function(){
 	$categories = App\Category::all();
 
 	return view('newcategory');
-});
+
+})->middleware(['auth','admin']);
+
 Route::get('categories/other', function(){
 	$users = App\User::whereHas('categories', function ($query) {
         $query->where('priority',0);
     })
-    ->distinct()->get();
+    ->distinct()->paginate(3);
 
 	return view('users-category-other',['users'=> $users]);
 });
@@ -80,28 +84,23 @@ Route::post('categories', function(){
 
 
 //-------------------------Users------------------------//
+//------------------------------------------------------//
 
 Route::get('users', function(){
 	$users = App\User::paginate(2);
 
 	return view('users',['users'=>$users]);
-});
+
+})->middleware(['auth']);
+
 Route::get('users/create', function(){
 
 	return view('signup-page');
-});
-
-
-Route::get('users/{id}', function($id){
-	$user = App\User::find($id);
-
-	return view('users',['user' =>$user]);
 
 });
-
-
 
 //--------------------New User------------------------//
+//----------------------------------------------------//
 
 Route::post('users', function(){
 	$input = Request::all();
@@ -171,7 +170,7 @@ Route::post('users', function(){
 
 
 		}
-	
+		flash()->overlay('Registration successful!', 'Skills Xchange');
 		
 		Auth::login($user);
 		return redirect('users/'.$user->id);
@@ -185,12 +184,14 @@ Route::post('users', function(){
 
 
 //----------------------User Details-------------------------//
+//----------------------------------------------------------//
 
 Route::get('users/{id}', function($id){
 	$user = App\User::find($id);
 
 	return view('userdetails', ['user' =>$user]);
-});
+
+})->middleware(['auth','useraccount']);
 
 Route::get('users/{id}/edit', function($id){
 	$user = App\User::find($id);
@@ -200,7 +201,8 @@ Route::get('users/{id}/edit', function($id){
 
 		
 	return view('edituser',['user'=>$user]);
-});
+
+})->middleware(['auth','useraccount']);
 
 Route::put('users/{id}', function($id){
 	$input = Request::all();
@@ -224,11 +226,16 @@ Route::put('users/{id}', function($id){
 		$user->fill($input);
 		$user->save();
 
-			
+		if(Request::hasFile('photo')){
+
 			$newName = time().'photo_'. $user->id.'.jpg';
 			Request::file('photo')->move('images', $newName);
 			$user->photo = $newName;
 			$user->save();
+
+
+		}
+			
 
 
 		$user->categories()->detach();
@@ -276,10 +283,11 @@ Route::put('users/{id}', function($id){
 			withInput()->withErrors($validator);
 	   }
 
-});
+})->middleware(['auth','useraccount']);
 
 
-//-------------------Comments User--------------------------------//
+//-------------------Comments User------------------------ //
+//--------------------------------------------------------//
 
 Route::post('user-comments', function(){
 
@@ -304,9 +312,11 @@ Route::delete('comments/{id}', function($id){
 	$comment->delete();
 
 	return Redirect::back();
-});
+
+})->middleware(['auth']);
 
 //---------------------POSTS-----------------------//
+//-------------------------------------------------//
 
 Route::get('posts', function(){
 	$posts= App\Post::paginate(1);
@@ -318,7 +328,7 @@ Route::get('posts', function(){
 Route::get('posts/create', function(){
 	return view ('newpostform');
 	
-});
+})->middleware(['auth']);
 
 Route::get('posts/{id}', function($id){
 
@@ -333,6 +343,7 @@ Route::get('posts/{id}/edit', function($id){
 	$post = App\Post::find($id);	
 	
 	return view('editpost',['post'=>$post]);
+
 });
 
 
@@ -394,10 +405,10 @@ Route::put('posts/{id}',function($id){
         $post->fill($input);
         $post->save();
 
-        	$newName = time().'photo_'. $post->id.'.jpg';
-			Request::file('post_photo')->move('images', $newName);
-			$post->post_photo = $newName;
-			$post->save();
+   //      	$newName = time().'photo_'. $post->id.'.jpg';
+			// Request::file('post_photo')->move('images', $newName);
+			// $post->post_photo = $newName;
+			// $post->save();
 
     return redirect('posts/'.$id);
 
@@ -421,7 +432,8 @@ Route::delete('posts/{id}', function($id){
 });
 
 
-//-----------------------Comments Posts-------------------//
+//--------------------Comments Posts-------------------//
+//-----------------------------------------------------//
 
 Route::post('post-comments',function(){
 
@@ -449,7 +461,8 @@ Route::delete('comments/{id}', function($id){
 });
 
 
-//----------------------Auth-------------------------------//
+//----------------------Auth---------------------//
+//-----------------------------------------------//
 
 Route::get('login', function(){
 	return view('login');
@@ -459,12 +472,16 @@ Route::post('login', function(){
     $input = Request::only('email', 'password');
 
     if(Auth::attempt($input)== true){
-       
+
+       flash()->overlay('You are logged in!', 'Skills Xchange');
+
         return redirect('categories');
 
     }else{
         return redirect('login')->with('message','Try again');
     }
+
+
         
 });
 
@@ -475,16 +492,65 @@ Route::get('logout', function(){
     return redirect('login');
 });
 
-//--------------------SEARCH------------------------------//
+//--------------------SEARCH------------------------//
+//--------------------------------------------------//
 
 Route::post('search', function(){
 
 	$word = Request::get('s');
 
-	$cats = App\Category::where('name',$word)->get();
+	$cats = App\Category::where('name','LIKE','%'.$word.'%')->get();
+	$searchUsers = App\User::where('firstname','LIKE','%'.$word.'%')->orWhere('firstname','LIKE','%'.$word.'%')->get();
 
-
-	return view('search',compact('cats'));
+	return view('search',compact('cats','searchUsers'));
 });
+
+//------------------EMAIL--------------------------//
+//-------------------------------------------------//
+
+Route::get('contact', function () {
+
+	return Redirect::back();
+});
+
+Route::post('contact', function () {
+
+	$data = Request::all();
+
+	//return $data;
+
+	$reciever = App\User::find($data['user_id']);
+	$sender = Auth::user();
+
+	Mail::send('emailtemplate', $data, function ($message) use ($reciever,$sender) {
+	    $message->from($sender->email, 'Skills Xchange');
+	    $message->to($reciever->email);
+
+	});
+	
+	flash()->overlay('Message has been sent!', 'Skills Xchange');
+
+	return Redirect::back();
+	
+});
+
+
+//------------------dropzone---------------------//
+//----------------------------------------------//
+
+
+Route::post('photos', function () {
+
+
+	$post = App\Post::find(Request::get('post_id'));
+    $newName = time().'photo_'. $post->id.'.jpg';
+    Request::file('photo')->move('images',$newName);
+	$post->post_photo = $newName;
+	$post->save();
+	return $newName;
+
+
+});
+
 
 

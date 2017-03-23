@@ -1,6 +1,8 @@
 @extends('templatepages')
 @section('content')
 
+@include('flash::message')
+
 	<div id="content">
         <div class="container background-white">
             <div class="row margin-vert-40">
@@ -8,10 +10,10 @@
                 <div class="col-md-6 col-md-offset-3 col-sm-offset-3">
                         
                     <div class="blog-post-body">
-	                    <h2 class="margin-bottom-20">Your Account Details</h2>
+	                    <h2 class="margin-bottom-20"><b>Your Account Details</b></h2>
 	                    
 
-	                    	<h3 class="margin-bottom-20"><b>Photo</b></h3>
+	                    	<h3 class="grid-image margin-bottom-20"><b>Photo</b></h3>
 							<img src="{{url('/')}}/images/{{$user->photo}}" alt="" class="img-thumbnail">
 
 	                        <h3 class="margin-top-30"><b>First Name</b></h3>

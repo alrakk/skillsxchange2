@@ -16,8 +16,11 @@
 
                             <div class="form-group margin-bottom-20">
                                 <label for=""><b>Photo</b></label>
-                                 {!!Form::file('post_photo','',['class'=>'form-control']);!!}
-                                 <img src="{{url('/')}}/images/{{$post->post_photo}}" alt="">
+                        
+                                 <img id="photo" src="{{url('/')}}/images/{{$post->post_photo}}" alt="">
+
+                                 <div class="dropzone margin-top-20" id="image-upload"></div>
+                                 <input type="hidden" name="post_id" value="{{$post->id}}">
                                 
                             </div>
 
@@ -40,12 +43,7 @@
                                 {!!Form::textarea('content',$post->content,['class'=>'form-control']);!!}
                                
                             </div>
-                            
-
-
-                            
-
-                            
+                                                        
                             <hr>
 
                             <div class="col-lg-6 text-right margin-top-60">

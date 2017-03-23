@@ -36,6 +36,9 @@ html {
   height: 100%;
 }
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   line-height: 1.7em;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
@@ -44,6 +47,7 @@ body {
   background-color: #FFFFFF;
   color: #656565;
   height: 100%;
+
 }
 #header,
 .parallax-bg1,
@@ -146,9 +150,13 @@ p.site-slogan {
 
 }
 
+
 .categories{
-  background-color: rgba(102, 102, 102,0.6);
+  background-color: rgba(102, 102, 102,0.2);
+  border-radius: 15px;
 }
+
+
 
 
 /*-----------------------------------------------------------------------------------*/
@@ -178,6 +186,7 @@ p.site-slogan {
 }
 /* Footer Menu */
 #footer {
+  margin-top: auto;
   color: #bbb;
   color: rgba(255, 255, 255, 0.5);
   padding-top: 25px;
@@ -753,13 +762,15 @@ p.site-slogan {
 /*-----------------------------------------------------------------------------------*/
 #hornav {
   position: relative;
-  text-align: center;
+  text-align: center !important;
   width: 100%;
   padding-bottom: 10px;
+
 
 }
 #hornav .navbar-nav {
   float: none;
+
 
 }
 #hornav ul {
@@ -768,18 +779,19 @@ p.site-slogan {
   padding: 0 10px;
 
 
+
 }
 #hornav ul > li {
   margin: 0px 5px;
 }
 #hornav ul > li > a,
 #hornav ul > li > span {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 390;
   letter-spacing: 1px;
   line-height: normal;
   padding: 18px 20px;
-  text-transform: uppercase;
+  text-transform:uppercase;
   display: block;
   color:rgb(204, 255, 204);
 }
@@ -2999,4 +3011,16 @@ ul.posts-list li {
 
 #search-input .glyphicon-search{
     font-size: 23px;
+}
+
+.grid-image-user> img{
+  height: 170px;
+}
+
+.bla{
+  border:1px red solid;
+}
+
+#public{
+  display: none;
 }

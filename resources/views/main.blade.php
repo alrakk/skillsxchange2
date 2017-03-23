@@ -2,6 +2,8 @@
 @extends('templatemain')
 @section('content')
 
+   @include('flash::message')
+
     <!-- === BEGIN CONTENT === -->
     <div id="welcome" class="background-white">
         <div class="container">
@@ -17,12 +19,13 @@
             </div>
         </div>
     </div>
+
     <!-- Categories Title -->
     <div id="icons" class="parallax-bg1 text-light background-primary" style="background-position: 50% 0%;" data-stellar-background-ratio="0.5">
         <div class="container">
             <div class="row margin-vert-40">
                 
-                <div class="categories col-md-4 col-md-offset-4 text-center animate fadeIn">
+                <div class="categories col-md-4 col-md-offset-5 text-center animate fadeIn">
                     <i class="fa-crosshairs fa-3x color-primary-lighter"></i>
                     <h2 class="padding-top-10">Categories</h2>
                     <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer.</p>
@@ -35,8 +38,7 @@
 
     <!-- Categories -->
 
-
-    <div id="porfolio" class="parallax-bg2" style="background-position: 50% 0%;" data-stellar-background-ratio="0.5">
+    <div id="porfolio" class="col-md-offset-1" style="background-position: 50% 0%;" data-stellar-background-ratio="0.5">
         <div class="container">
             <div class="row margin-top-40">
                 <!-- Categories Item -->
@@ -117,7 +119,7 @@
                         <div class="headline">
                             <h2 class="margin-bottom-20"></h2>
                         </div>
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas feugiat. Et harum quidem rerum facilis est et expedita distinctio lorem ipsum dolor sit
+                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas feugiat. Et harum quidem rerum facilis est et expedita distinctio lorem ipsum dolor sit
                             amet, consectetur adipiscing elit landitiis.</p>
                         <br>
                         <!-- Contact Form -->

@@ -1,7 +1,7 @@
 @extends('templatepages')
 @section('content')
 
-        <!-- === BEGIN CONTENT === -->
+        
         <div id="content ">
             <div class="container background-white">
                 <div class="row margin-vert-30">
@@ -13,24 +13,23 @@
                         <div class="blog-post">
                             
                             <div class="blog-item-header margin-top-50">
-                                <!-- Title -->
-                                <h2>{{$post->title}}</h2>
-                                <!-- End Title -->
+                                <h2><b>{{$post->title}}</b></h2>    
                             </div>
-                            <!-- Blog Item -->
-                            <div class="blog-item">
-                                <div class="clearfix"></div>
-                                <div class="blog-post-body row margin-top-15">
-                                    <div class="col-md-12 ">
-                                        <img class="margin-bottom-20" src="{{url('/')}}/images/{{$post->post_photo}}" alt="">
-                                        <p><b>Author:</b> {{$post->user->firstname}} {{$post->user->lastname}}</p>
+
+                                <!-- Blog -->
+                                <div class="blog-item">
+                                    <div class="clearfix"></div>
+
+                                    <div class="blog-post-body row margin-top-15">
+                                        <div class="col-md-12 ">
+                                            <img class="margin-bottom-20" src="{{url('/')}}/images/{{$post->post_photo}}" alt="">
+                                            <p><b>Author:</b> {{$post->user->firstname}} {{$post->user->lastname}}</p>
+                                        </div>
+
+                                        <div class="col-md-12  margin-bottom-50"> 
+                                            <p>{!!$post->content!!}</p>
+                                         </div>
                                     </div>
-                                    <div class="col-md-12  margin-bottom-50">
-                                    
-                                        <div>{!!$post->content!!}</div>
-                                        
-                                    </div>
-                                </div>
 
                                     @if(Auth::check())
 
@@ -52,53 +51,45 @@
                                         <div class="panel-heading">
                                             <h3>Comments</h3>
                                         </div>
-                                        <ul class="list-group">
-                                            @foreach($post->comments as $comment)
-                                            <li class="list-group-item">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <h3 class="margin-bottom-20"><b>{{$comment->user->firstname}} {{$comment->user->lastname}}</b></h3>
+
+                                            <ul class="list-group">
+                                                @foreach($post->comments as $comment)
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <h3 class="margin-bottom-20"><b>{{$comment->user->firstname}} {{$comment->user->lastname}}</b></h3>
+                                                        </div>
+
+                                                        <div class="col-md-10">
+                                        
+                                                            <p>{{$comment->content}}</p>                                                            
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-10">
-                                    
-                                                        <p>{{$comment->content}}</p>
-                                                        
-                                                    </div>
+                                                    @if(Auth::check())
 
-                                                </div>
-                                                @if(Auth::check())
+                                                            @if((Auth::user()->admin_status =='1')||(Auth::user()->id == $comment->user_id))
 
-                                                        @if((Auth::user()->admin_status =='1')||(Auth::user()->id == $comment->user_id))
+                                                                {{Form::open(['url'=>'comments/'.$comment->id,'method'=>'delete'])}}
+                                                                {{Form::submit('Delete',array('class'=>'btn btn-primary margin-top-10 margin-bottom-30 '))}}
+                                                                {{Form::close()}}
 
-                                                            {{Form::open(['url'=>'comments/'.$comment->id,'method'=>'delete'])}}
-                                                            {{Form::submit('Delete',array('class'=>'btn btn-primary margin-top-10 margin-bottom-30 '))}}
-                                                            {{Form::close()}}
-
-                                                         @endif
-                                                    @endif
-                                            </li>
-                                            @endforeach
-                                        </ul>
+                                                             @endif
+                                                        @endif
+                                                </li>
+                                                @endforeach
+                                            </ul>
 
 
 
                                             <!-- Comment Form -->
                                             <li class="list-group-item">
                                                 <div class="blog-comment-form">
-                                                    <div class="row margin-top-20">
-                                                        <div class="col-md-12">
-                                                            <div class="pull-left">
-                                                                
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                     
-
                                 
-                                                <h3>Leave a Comment</h3>
+                                                    
 
                                                     @if(Auth::check()== true)
+                                                        <h3>Leave a Comment</h3>
 
                                                         {!! Form::open(['url' => 'post-comments'])!!}
 
@@ -131,6 +122,7 @@
 
                         @endforeach
                         <!-- End Blog Post -->
+                        
                          <!-- Pagination -->
                         {{$posts->links()}}
                 

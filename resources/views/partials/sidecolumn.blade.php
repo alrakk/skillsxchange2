@@ -37,9 +37,9 @@
                         
                             <li>
                                 <div class="recent-post margin-top-10">
-                                    <a href="">
-                                        <img class="pull-left" src="{{url('/')}}/images/{{$post->post_photo}}" alt="thumb1">
-                                    </a>
+                                    
+                                        <img class="pull-left" src="{{url('/')}}/images/{{$post->post_photo}}" alt="img-thumbnail">
+                                   
                                     <a href="{{url('posts/'.$post->id)}}" class="posts-list-title">{{$post->title}}</a>
                                     <br>
                                     <span class="recent-post-date">

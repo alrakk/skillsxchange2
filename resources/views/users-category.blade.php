@@ -19,7 +19,7 @@
                         
                         <div class="blog-item-header margin-top-30">
                             
-                            <h2>{{$user->firstname}} {{$user->lastname}}</h2>
+                            <h2><b>{{$user->firstname}} {{$user->lastname}}</b></h2>
 
                             <!-- User Item Details -->
                             <div class="blog-post-details">
@@ -35,8 +35,9 @@
                         <!-- User Item Body -->
                         <div class="blog">
                             <div class="clearfix"></div>
+                            
                             <div class="blog-post-body row margin-top-15">
-                                <div class="col-md-5">
+                                <div class="grid-image-user col-sm-5">
                                     <img class="margin-bottom-20" src="{{url('/')}}/images/{{$user->photo}}" alt="thumb1">
                                 </div>
                                 <div class="col-md-7 padding-right-20">
@@ -54,56 +55,17 @@
                                     @endforeach
                                     </p>
 
-                                    <!-- Pop Up -->
+                                    <!-- Modal Contact -->
+                                 @if(Auth::check())
 
-                                   <div class="bd-example">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Connect</button>
-
-                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                      </button>
-                                                      <h4 class="modal-title" id="exampleModalLabel">Send Message</h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                      <form>
-                                                        <div class="form-group">
-                                                          <label for="recipient-name" class="form-control-label">Name</label>
-                                                          <input type="text" class="form-control" id="Name">
-                                                        </div>
-                                                        <div class="form-group">
-                                                          <label for="message-text" class="form-control-label">Subject</label>
-                                                          <input class="form-control" id="subject"></input>
-                                                        </div>
-                                                        <div class="form-group">
-                                                          <label for="message-text" class="form-control-label">Email</label>
-                                                          <input class="form-control" id="email"></input>
-                                                        </div>
-                                                        <div class="form-group">
-                                                          <label for="message-text" class="form-control-label">Message:</label>
-                                                          <textarea class="form-control" id="message-text"></textarea>
-                                                        </div>
-                                                      </form>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                      <button type="button" class="btn btn-primary">Send message</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Pop Up -->
+                                   @include('partials.contactmodal')
+                                @endif  
+                                    <!-- End Modal Contact -->
                                                                        
                                 </div>
                             </div>
                         </div>
                         
-                        
-
                         <!-- End User Item Body -->
                     </div>
                     <!-- End User Item -->
@@ -121,8 +83,6 @@
                                 </h4>
                             </a>
                         </div>
-
-                        
 
 
                         <div id="faq-sub{{$index}}" class="panel-collapse collapse">
@@ -170,9 +130,7 @@
 
                                 
                             </div>     
-                        </div>
-
-                        
+                        </div>                        
                     </div>
                  
                     <!-- End Comments -->

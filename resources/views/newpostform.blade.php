@@ -9,7 +9,7 @@
                     <div class="col-md-6 col-md-offset-3 col-sm-offset-3">
                         
                             <div class="signup-header">
-                                <h2 class="margin-bottom-20">New Post</h2>
+                                <h2 class="margin-bottom-20"><b>New Post</b></h2>
                             </div>
                             {!! Form::open(['url' => 'posts', 'files'=>true, 'class'=>'margin-bottom-20']) !!}
 
@@ -19,11 +19,9 @@
                                 {!!Form::text('title','',['class'=>'form-control']);!!}
                                 {{$errors->first('title')}}
                             </div>
-
-                         
+                        
                             {!!Form::hidden('user_id',Auth::user()->id);!!}
-                            
-                            
+                                                        
                             <div class="form-group margin-bottom-20">
                                 <label for="">Content</label>
                                 {!!Form::textarea('content','',['class'=>'form-control wyz']);!!}
@@ -43,7 +41,6 @@
                                 <p>{{$errors->first('post_video')}}</p>
 
                             </div>
-
                             
                             <hr>
 
@@ -53,8 +50,7 @@
                                     <button class="btn btn-primary" type="submit">Add Post</button>
                                 </div>
                             </div>
-                              
-                       
+                                                     
                         {!! Form::close() !!}
                         
                     </div>

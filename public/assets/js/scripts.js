@@ -67,6 +67,12 @@ $(document).ready(function(){
 
 // thumbs animations
 $(function () {
+
+  $('.send').on('click',function(){
+    $(this).parent().prev().find('form').submit();
+  });
+
+  $('#flash-overlay-modal').modal();
     
     $(".thumbs-gallery i").animate({
              opacity: 0
@@ -158,6 +164,48 @@ $(function(){
   //Wysiwyg
 
   tinymce.init({ selector:'textarea.wyz' });
+
+
+  //
+
+
+  // Disable auto discover for all elements:
+  Dropzone.autoDiscover = false;
+
+  Dropzone.options.imageUpload = {
+    paramName: "photo", // The name that will be used to transfer the file
+    maxFilesize: 200, // MB
+    parallelUploads: 1,
+    uploadMultiple: false,
+    acceptedFiles: ".jpg",
+    accept: function(file, done) {
+      //front end validation
+      done();
+    },
+    sending: function(file, xhr, formData) {
+      // Will send the filesize along with the file as POST data.
+      formData.append("_token", $('#token').text());
+
+      formData.append("post_id", $('[name=post_id]').val());
+    },
+    init: function() {
+      this.on("complete", function(file) {
+        // do whatever on complete
+      });
+
+      this.on("success", function(file, response) {
+        console.log(response);
+        $("img#photo").attr('src', $('#public').text() + '/images/' + response);
+      });
+    }
+  };
+
+  //Dropzone
+  var myDropzone = new Dropzone("#image-upload", {
+    url: $('#public').text() + "/photos"
+  });
+
+
 });
 
 
